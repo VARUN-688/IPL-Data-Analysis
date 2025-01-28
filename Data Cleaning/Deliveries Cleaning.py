@@ -142,8 +142,15 @@ df['venue'] = df['venue'].apply(lambda x: x.split(',')[0])
 
 df.venue.value_counts()
 
+def get_overs(row):
+    if row.over <= 5:
+        return "Powerplay"
+    elif row.over > 5 and row.over <= 17:
+        return "Mid"
+    else:
+        return "Death"
 
-# In[24]:
+df['overs_group'] = df.apply(get_overs, axis=1)
 
 
 df.to_csv("matches_cleaned_data.csv")
